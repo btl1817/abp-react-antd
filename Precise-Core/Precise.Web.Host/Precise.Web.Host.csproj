@@ -49,6 +49,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\Plugins\" />
+    <Folder Include="wwwroot\Plugins\" />
   </ItemGroup>
 
 </Project>
