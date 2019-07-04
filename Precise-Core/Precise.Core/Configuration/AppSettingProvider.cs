@@ -83,11 +83,11 @@ namespace Precise.Configuration
             //{
             //  "navTheme": "dark",
             //  "primaryColor": "#1890FF",
-            //  "layout": "sidemenu",
+            //  "layout": "topmenu",
             //  "contentWidth": "Fluid",
             //  "fixedHeader": true,
             //  "autoHideHeader": true,
-            //  "fixSiderbar": true,
+            //  "fixSiderbar": false,
             //  "collapse": true
             //}
             return new[]
@@ -101,9 +101,9 @@ namespace Precise.Configuration
                 //固定 Header
                 new SettingDefinition(themeName + "." + AppSettings.UiManagement.Header.FixedHeader, GetFromAppSettings(themeName + "." +AppSettings.UiManagement.Header.FixedHeader, "true"),isVisibleToClients: true, scopes: SettingScopes.All),
                 //导航模式
-                new SettingDefinition(themeName + "." + AppSettings.UiManagement.LeftAside.NavigationMode, GetFromAppSettings(themeName + "." +AppSettings.UiManagement.LeftAside.NavigationMode, "sidemenu"), isVisibleToClients: true, scopes: SettingScopes.All),
+                new SettingDefinition(themeName + "." + AppSettings.UiManagement.LeftAside.NavigationMode, GetFromAppSettings(themeName + "." +AppSettings.UiManagement.LeftAside.NavigationMode, "topmenu"), isVisibleToClients: true, scopes: SettingScopes.All),
                 //固定侧边菜单
-                new SettingDefinition(themeName + "." + AppSettings.UiManagement.LeftAside.FixedMenu, GetFromAppSettings(themeName + "." +AppSettings.UiManagement.LeftAside.FixedMenu, "true"),isVisibleToClients: true, scopes: SettingScopes.All),
+                new SettingDefinition(themeName + "." + AppSettings.UiManagement.LeftAside.FixedMenu, GetFromAppSettings(themeName + "." +AppSettings.UiManagement.LeftAside.FixedMenu, "false"),isVisibleToClients: true, scopes: SettingScopes.All),
                 //色弱模式
                 new SettingDefinition(themeName + "." + AppSettings.UiManagement.Other.WeakMode, GetFromAppSettings(themeName + "." +AppSettings.UiManagement.Other.WeakMode, "false"),isVisibleToClients: true, scopes: SettingScopes.All),
                 //固定底部

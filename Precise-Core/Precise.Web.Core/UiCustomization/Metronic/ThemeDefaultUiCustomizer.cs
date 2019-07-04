@@ -50,9 +50,9 @@ namespace Precise.Web.UiCustomization.Metronic
 
             settings.BaseSettings.Theme = ThemeName;
 
-            settings.IsLeftMenuUsed = true;
-            settings.IsTopMenuUsed = false;
-            settings.IsTabMenuUsed = false;
+            settings.IsLeftMenuUsed = false;
+            settings.IsTopMenuUsed = true;
+            settings.IsTabMenuUsed = true;
 
             return settings;
         }

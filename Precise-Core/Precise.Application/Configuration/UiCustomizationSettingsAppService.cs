@@ -29,6 +29,7 @@ namespace Precise.Configuration
 
         public async Task<List<ThemeSettingsDto>> GetUiManagementSettings()
         {
+            //await UseSystemDefaultSettings();
             var settings = new List<ThemeSettingsDto>();
             var themeCustomizers = _iocResolver.ResolveAll<IUiCustomizer>();
 

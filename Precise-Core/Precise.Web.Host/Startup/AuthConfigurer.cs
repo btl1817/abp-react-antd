@@ -82,7 +82,7 @@ namespace Precise.Web.Startup
             }
 
             var qsAuthToken = context.HttpContext.Request.Query["enc_auth_token"].FirstOrDefault();
-            if (qsAuthToken == null)
+            if (string.IsNullOrEmpty(qsAuthToken) || qsAuthToken.Equals("null"))
             {
                 var env = context.HttpContext.RequestServices.GetService<IHostingEnvironment>();
                 var config = env.GetAppConfiguration();
