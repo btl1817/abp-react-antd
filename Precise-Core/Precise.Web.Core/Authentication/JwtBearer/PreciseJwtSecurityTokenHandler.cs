@@ -72,8 +72,8 @@ namespace Precise.Web.Authentication.JwtBearer
                             }
                         }
                     }
-
-                    throw new SecurityTokenException("invalid");
+                    return null;
+                    //throw new SecurityTokenException("invalid");
                 }
             }
         }
