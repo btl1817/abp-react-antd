@@ -28,4 +28,9 @@
     <ProjectReference Include="..\Precise.WeChat\Precise.WeChat.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Stock\" />
+    <Folder Include="新文件夹\" />
+  </ItemGroup>
+
 </Project>

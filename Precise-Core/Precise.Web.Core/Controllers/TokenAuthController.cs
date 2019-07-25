@@ -160,6 +160,8 @@ namespace Precise.Web.Controllers
 
             //Login!
             var accessToken = CreateAccessToken(await CreateJwtClaims(loginResult.Identity, loginResult.User));
+
+            Logger.Info("用户登录: " + accessToken);
             return new AuthenticateResultModel
             {
                 AccessToken = accessToken,
