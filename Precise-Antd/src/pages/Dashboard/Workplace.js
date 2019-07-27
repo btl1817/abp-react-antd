@@ -23,18 +23,6 @@ const links = [
     title: '操作三',
     href: '',
   },
-  {
-    title: '操作四',
-    href: '',
-  },
-  {
-    title: '操作五',
-    href: '',
-  },
-  {
-    title: '操作六',
-    href: '',
-  },
 ];
 
 @connect(({ global, project, activities, chart, loading }) => ({
@@ -125,12 +113,12 @@ class Workplace extends PureComponent {
           </div>
           <div className={styles.content}>
             <div className={styles.contentTitle}>
-              早安，
+              {currentUser.surname}
               {currentUser.name}
               ，祝你开心每一天！
             </div>
             <div>
-              软件开发 | 黄河水利科学研究院-信息工程中心
+              常州绍鼎密封科技有限公司
             </div>
           </div>
         </div>
@@ -215,7 +203,7 @@ class Workplace extends PureComponent {
               bordered={false}
               bodyStyle={{ padding: 0 }}
             >
-              <EditableLinkGroup onAdd={() => { }} links={links} linkElement={Link} />
+              <EditableLinkGroup links={links} linkElement={Link} />
             </Card>
             <Card
               style={{ marginBottom: 24 }}

@@ -7,3 +7,10 @@ export async function getUsers(params) {
         params
     );
 }
+
+export async function changePassword(params) {
+    return request(appConsts.remoteServiceBaseUrl + "/api/services/app/Profile/ChangePassword",
+        { method: 'POST' },
+        params
+    );
+}

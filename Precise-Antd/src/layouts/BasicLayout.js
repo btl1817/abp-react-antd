@@ -119,14 +119,14 @@ class BasicLayout extends React.PureComponent {
     const currRouterData = this.matchParamsPath(pathname, breadcrumbNameMap);
 
     if (!currRouterData) {
-      return 'Ant Design Pro';
+      return '炼胶中心智能管理系统';
     }
     const pageName = formatMessage({
       id: currRouterData.locale || currRouterData.name,
       defaultMessage: currRouterData.name,
     });
 
-    return `${pageName} - Ant Design Pro`;
+    return `${pageName} - 炼胶中心智能管理系统`;
   };
 
   getLayoutStyle = () => {

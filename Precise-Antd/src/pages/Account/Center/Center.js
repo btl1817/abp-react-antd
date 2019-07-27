@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import Link from 'umi/link';
 import router from 'umi/router';
-import { Card, Row, Col, Icon, Avatar, Tag, Divider, Spin, Input } from 'antd';
+import { Card, Row, Col, Icon, Avatar, Tag, Divider, Spin, Input, message, Form } from 'antd';
 import GridContent from '@/components/PageHeaderWrapper/GridContent';
 import styles from './Center.less';
 
@@ -16,8 +16,8 @@ import styles from './Center.less';
 class Center extends PureComponent {
   state = {
     newTags: [],
-    inputVisible: false,
-    inputValue: '',
+    oldValue: '',
+    newValue: '',
   };
 
   componentDidMount() {
@@ -36,33 +36,38 @@ class Center extends PureComponent {
     });
   }
 
-  onTabChange = key => {
-    const { match } = this.props;
-    switch (key) {
-      case 'articles':
-        router.push(`${match.url}/articles`);
-        break;
-      case 'applications':
-        router.push(`${match.url}/applications`);
-        break;
-      case 'projects':
-        router.push(`${match.url}/projects`);
-        break;
-      default:
-        break;
-    }
+  oldChange = e => {
+    this.setState({ oldValue: e.target.value });
   };
-
-  showInput = () => {
-    this.setState({ inputVisible: true }, () => this.input.focus());
+  newChange = e => {
+    this.setState({ newValue: e.target.value });
   };
+  savePWD=e=>{
+    message.info(this.state.oldValue+'|'+this.state.newValue);
 
-  saveInputRef = input => {
-    this.input = input;
+    dispatch({
+      type: 'systemSetting/apiCreateRotation',
+      payload: {
+        currentPassword: this.state.oldValue,
+        newPassword: this.state.newValue,
+      },
+    });
   };
-
-  handleInputChange = e => {
-    this.setState({ inputValue: e.target.value });
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+      }
+    });
+    
+    dispatch({
+      type: 'systemSetting/apiCreateRotation',
+      payload: {
+        currentPassword: this.state.oldValue,
+        newPassword: this.state.newValue,
+      },
+    });
   };
 
   handleInputConfirm = () => {
@@ -74,8 +79,8 @@ class Center extends PureComponent {
     }
     this.setState({
       newTags,
-      inputVisible: false,
-      inputValue: '',
+      oldValue: '',
+      newValue: '',
     });
   };
 
@@ -120,10 +125,10 @@ class Center extends PureComponent {
     ];
 
     return (
-      <GridContent className={styles.userCenter}>
-        <Row gutter={24}>
-          <Col lg={7} md={24}>
-            <Card bordered={false} style={{ marginBottom: 24 }} loading={currentUserLoading}>
+      // <GridContent className={styles.userCenter}>
+      //   <Row gutter={24}>
+      //     <Col lg={7} md={24}>
+            <Card style={{ marginBottom: 24 }} loading={currentUserLoading}>
               {currentUser && Object.keys(currentUser).length ? (
                 <div>
                   <div className={styles.avatarHolder}>
@@ -134,24 +139,50 @@ class Center extends PureComponent {
                   <div className={styles.detail}>
                     <p>
                       <i className={styles.title} />
-                      软件开发
-                    </p>
-                    <p>
-                      <i className={styles.group} />
-                      黄河水利科学研究院-信息工程中心
-                    </p>
-                    <p>
-                      <i className={styles.address} />
-                      河南省
-                      郑州
+                      常州绍鼎密封科技有限公司
                     </p>
                   </div>
+                  <Divider dashed />              
+                  <Form onSubmit={this.handleSubmit} className="login-form">
+                    <Form.Item>
+                      {getFieldDecorator('password', {
+                        rules: [{ required: true, message: '请输入原密码!' }],
+                      })(
+                        <Input
+                          prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                          type="password"
+                          placeholder="原密码"
+                        />,
+                      )}
+                    </Form.Item>
+                    <Form.Item>
+                      {getFieldDecorator('password', {
+                        rules: [{ required: true, message: '请输入新密码!' }],
+                      })(
+                        <Input
+                          prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                          placeholder="新密码"
+                        />,
+                      )}
+                    </Form.Item>
+                  </Form>
+
+                  {/* <div className={styles.Input}>
+                    <p>
+                      <i className={styles.title} />
+                      原密码：
+                    <Input placeholder="原密码" style={{ width: 200 }} onChange={this.oldChange.bind(this)}/>
+                    </p>
+                    <p>
+                      <i className={styles.title} />
+                      新密码：
+                    <Input placeholder="新密码" style={{ width: 200 }} onChange={this.newChange.bind(this)}/>
+                    </p>
+                    <button type="primary" onClick={this.savePWD.bind(this)} style={{marginLeft:20}} >修改</button>
+                  </div> */}
                   <Divider dashed />
                   <div className={styles.tags}>
-                    <div className={styles.tagsTitle}>标签</div>
-                    {/* {currentUser.tags.concat(newTags).map(item => (
-                      <Tag key={item.key}>{item.label}</Tag>
-                    ))} */}
+                    <div className={styles.tagsTitle}>角色</div>
                     {inputVisible && (
                       <Input
                         ref={this.saveInputRef}
@@ -173,7 +204,8 @@ class Center extends PureComponent {
                       </Tag>
                     )}
                   </div>
-                  <Divider style={{ marginTop: 16 }} dashed />
+                  <div ></div>
+                  {/* <Divider style={{ marginTop: 16 }} dashed />
                   <div className={styles.team}>
                     <div className={styles.teamTitle}>团队</div>
                     <Spin spinning={projectLoading}>
@@ -188,14 +220,14 @@ class Center extends PureComponent {
                         ))}
                       </Row>
                     </Spin>
-                  </div>
+                  </div> */}
                 </div>
               ) : (
                 'loading...'
               )}
             </Card>
-          </Col>
-          <Col lg={17} md={24}>
+          // </Col>
+          /*{ <Col lg={17} md={24}>
             <Card
               className={styles.tabsCard}
               bordered={false}
@@ -206,11 +238,13 @@ class Center extends PureComponent {
             >
               {children}
             </Card>
-          </Col>
-        </Row>
-      </GridContent>
+          </Col> }*/
+      //   </Row>
+      // </GridContent>
     );
   }
 }
+
+const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(Center);
 
 export default Center;
