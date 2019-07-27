@@ -18,9 +18,14 @@ namespace Precise.EntityFrameworkCore
     public class PreciseDbContext : AbpZeroDbContext<Tenant, Role, User, PreciseDbContext>, IAbpPersistedGrantDbContext
     {
         /* Define an IDbSet for each entity of the application */
+        #region 业务相关
+
+        public virtual DbSet<TechnologyInfo> TechnologyInfos { get; set; }
+        public virtual DbSet<TechnologyStep> TechnologySteps { get; set; }
+        public virtual DbSet<TechnologyFeed> TechnologyFeeds { get; set; }
+        #endregion
 
         //Add-Migration
-
 
         public virtual DbSet<BinaryObject> BinaryObjects { get; set; }
 

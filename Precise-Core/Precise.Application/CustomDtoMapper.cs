@@ -35,6 +35,7 @@ using Precise.MultiTenancy.Payments.Dto;
 using Precise.Notifications.Dto;
 using Precise.Organizations.Dto;
 using Precise.Sessions.Dto;
+using Precise.Technology.Dto;
 using Precise.WorkFlow;
 using Precise.WorkFlow.Dtos;
 
@@ -44,6 +45,12 @@ namespace Precise
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+
+            configuration.CreateMap<TechnologyInfo, TechnologyInfoDto>();
+            configuration.CreateMap<TechnologyInfo, GetTechnologyInfoInput>();
+
+            #region BASE
+
             //Inputs
             configuration.CreateMap<CheckboxInputType, FeatureInputTypeDto>();
             configuration.CreateMap<SingleLineStringInputType, FeatureInputTypeDto>();
@@ -168,6 +175,8 @@ namespace Precise
             configuration.CreateMap<ItemsEntityListDto, ItemsEntity>();
             configuration.CreateMap<ItemsEntityEditDto, ItemsEntity>();
             configuration.CreateMap<ItemsEntity, ItemsEntityEditDto>();
+
+            #endregion
         }
     }
 }

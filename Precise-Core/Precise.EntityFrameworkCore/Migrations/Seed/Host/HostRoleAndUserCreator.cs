@@ -54,9 +54,10 @@ namespace Precise.Migrations.Seed.Host
                     IsEmailConfirmed = true,
                     ShouldChangePasswordOnNextLogin = false,
                     IsActive = true,
-                    Password = "AM4OLBpptxBYmM79lGOX9egzZk3vIQU3d/gFCJzaBjAPXzYIK3tQ2N7X4fcrHtElTw==" //123qwe
+                    Password = "AM4OLBpptxBYmM79lGOX9egzZk3vIQU3d/gFCJzaBjAPXzYIK3tQ2N7X4fcrHtElTw==", //123qwe
                 };
-
+                user.ShouldChangePasswordOnNextLogin = false;
+                user.IsLockoutEnabled = false;
                 user.SetNormalizedNames();
 
                 adminUserForHost = _context.Users.Add(user).Entity;
