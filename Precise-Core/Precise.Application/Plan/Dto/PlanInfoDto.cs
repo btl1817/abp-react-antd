@@ -4,17 +4,28 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Precise.Technology.Dto
+namespace Precise.Plan.Dto
 {
     [AutoMap(typeof(PlanInfo))]
     public class PlanInfoDto : FullAuditedEntityDto<long>
     {
-        public string RubberCode { get; set; }
+        public string CardCode { get; set; }
 
-        public string Code { get; set; }
+        public string TechnologyCode { get; set; }
 
-        public string Name { get; set; }
+        public string PlanDate { get; set; }
 
-        public string Status { get; set; }
+        public long ProductLineId { get; set; }
+
+        public string ProductLineName { get; set; }
+
+        public string Shifts { get; set; }
+
+        public PlanStatus Status { get; set; }
+
+        public string CreatedTime { get; set; }
+
+        public string CreatedUser { get; set; }
+
     }
 }

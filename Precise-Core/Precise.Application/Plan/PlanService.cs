@@ -14,17 +14,22 @@ using Abp.RealTime;
 using Abp.Runtime.Session;
 using Abp.Timing;
 using System.Linq.Dynamic.Core;
+using System.Linq;
 using Abp.Authorization;
+using Precise.Authorization.Users;
+using Precise.Plan.Dto;
 
 namespace Precise.Plan
 {
     [AbpAuthorize]
     public class PlanService : PreciseAppServiceBase, IPlanService
     {
-        private readonly IRepository<PlanInfo, long> _PlanInfo;
-        public PlanService(IRepository<PlanInfo, long> tlanInfo)
+        private readonly IRepository<PlanInfo, long> _planInfo;
+        private readonly IRepository<User, long> _userManager;
+        public PlanService(IRepository<PlanInfo, long> planInfo, IRepository<User, long> userManager)
         {
-            _PlanInfo = tlanInfo;
+            _planInfo = planInfo;
+            _userManager = userManager;
         }
 
         public Task<PlanInfoDto> Create(PlanInfoDto input)
@@ -39,18 +44,44 @@ namespace Precise.Plan
 
         public async Task<PlanInfoDto> Get(EntityDto<long> input)
         {
-            var query = await _PlanInfo.GetAsync(input.Id);
+            var query = await _planInfo.GetAsync(input.Id);
 
             return ObjectMapper.Map<PlanInfoDto>(query);
         }
 
-        public async Task<PagedResultDto<PlanInfoDto>> GetAll(GetPlanInfoInput input)
+        public async Task<PagedResultDto<PlanInfoDto>> GetAll(PlanInfoInput input)
         {
-            var query = _PlanInfo.GetAll();
+            var query = from pi in _planInfo.GetAll()
+                        join au in _userManager.GetAll() on pi.CreatorUserId equals au.Id
+                        select new
+                        {
+                            CardCode = pi.CardCode,
+                            CreatedTime = pi.CreationTime.ToString("yyyy-MM-dd HH:mm:ss"),
+                            CreatedUser = au.Surname + au.Name,
+                            CreationTime = pi.CreationTime,
+                            CreatorUserId = pi.CreatorUserId,
+                            DeleterUserId = pi.DeleterUserId,
+                            DeletionTime = pi.DeletionTime,
+                            Id = pi.Id,
+                            IsDeleted = pi.IsDeleted,
+                            LastModificationTime = pi.LastModificationTime,
+                            LastModifierUserId = pi.LastModifierUserId,
+                            PlanDate = pi.PlanDate.ToString("yyyy-MM-dd"),
+                            Status = pi.Status,
+                            TechnologyCode = pi.TechnologyCode,
+                            PlanDateD = pi.PlanDate,
+                            ProductLineName = pi.ProductLine.Name,
+                            ProductLineId = pi.ProductLineId,
+                            Shifts = pi.Shifts.ToString(),
+
+                        };
 
             query = query
-                //.WhereIf(!input.Code.IsNullOrWhiteSpace(), item => item.Code.Contains(input.Code))
-                //.WhereIf(!input.RubberCode.IsNullOrWhiteSpace(), item => item.RubberCode.Contains(input.RubberCode))
+                .WhereIf(!input.CardCode.IsNullOrWhiteSpace(), item => item.CardCode.Contains(input.CardCode))
+                .WhereIf(!input.TechnologyCode.IsNullOrWhiteSpace(), item => item.TechnologyCode.Contains(input.TechnologyCode))
+                .WhereIf(input.Status.HasValue, item => item.Status.Equals(input.Status.Value))
+                .WhereIf(input.PlanDateStart != null && input.PlanDateEnd != null, item => input.PlanDateStart >= item.PlanDateD && item.PlanDateD <= input.PlanDateStart)
+                .WhereIf(input.PlanDateStart != null && input.CreateTimeEnd != null, item => input.CreateTimeStart >= item.CreationTime && item.CreationTime <= input.CreateTimeStart)
                 ;
 
             var resultCount = await query.CountAsync();
@@ -61,7 +92,7 @@ namespace Precise.Plan
 
             var planInfoDtos = ObjectMapper.Map<IReadOnlyList<PlanInfoDto>>(results);
 
-            return new PagedResultDto<PlanInfoDto>(resultCount, tlanInfoDtos);
+            return new PagedResultDto<PlanInfoDto>(resultCount, planInfoDtos);
         }
 
         public Task<PlanInfoDto> Update(PlanInfoDto input)
@@ -71,9 +102,14 @@ namespace Precise.Plan
 
         public async Task<PlanInfoDto> GetById(EntityDto<long> input)
         {
-            var query = await _PlanInfo.GetAsync(input.Id);
+            var query = await _planInfo.GetAsync(input.Id);
 
-            return ObjectMapper.Map<TechnologyInfoDto>(query);
+            return ObjectMapper.Map<PlanInfoDto>(query);
+        }
+
+        public async Task<PlanInfoDto> CreatePlan(PlanInfoDto input)
+        {
+            throw new NotImplementedException();
         }
     }
 }

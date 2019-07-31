@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Precise.EntityFrameworkCore;
 
 namespace Precise.Migrations
 {
     [DbContext(typeof(PreciseDbContext))]
-    partial class PreciseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190731023148_plan")]
+    partial class plan
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1348,13 +1350,7 @@ namespace Precise.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("AuditedTime");
-
-                    b.Property<string>("AuditedUser");
-
                     b.Property<string>("CardCode");
-
-                    b.Property<DateTime?>("ComplatedTime");
 
                     b.Property<DateTime>("CreationTime");
 
@@ -1372,50 +1368,13 @@ namespace Precise.Migrations
 
                     b.Property<DateTime>("PlanDate");
 
-                    b.Property<long>("ProductLineId");
-
-                    b.Property<string>("Shifts");
-
-                    b.Property<int>("Status");
+                    b.Property<string>("Status");
 
                     b.Property<string>("TechnologyCode");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductLineId");
-
                     b.ToTable("PlanInfos");
-                });
-
-            modelBuilder.Entity("Precise.ProductLineInfo", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Code");
-
-                    b.Property<DateTime>("CreationTime");
-
-                    b.Property<long?>("CreatorUserId");
-
-                    b.Property<long?>("DeleterUserId");
-
-                    b.Property<DateTime?>("DeletionTime");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<DateTime?>("LastModificationTime");
-
-                    b.Property<long?>("LastModifierUserId");
-
-                    b.Property<string>("Name");
-
-                    b.Property<int>("Type");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProductLineInfos");
                 });
 
             modelBuilder.Entity("Precise.Storage.BinaryObject", b =>
@@ -1973,14 +1932,6 @@ namespace Precise.Migrations
                     b.HasOne("Precise.Authorization.Users.User", "LastModifierUser")
                         .WithMany()
                         .HasForeignKey("LastModifierUserId");
-                });
-
-            modelBuilder.Entity("Precise.PlanInfo", b =>
-                {
-                    b.HasOne("Precise.ProductLineInfo", "ProductLine")
-                        .WithMany()
-                        .HasForeignKey("ProductLineId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Precise.TechnologyFeed", b =>

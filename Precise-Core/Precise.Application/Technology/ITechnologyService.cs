@@ -11,5 +11,7 @@ namespace Precise.Technology
     public interface ITechnologyService : IAsyncCrudAppService<TechnologyInfoDto, long, GetTechnologyInfoInput>
     {
         Task<TechnologyInfoDto> GetById(EntityDto<long> input);
+        Task<IEnumerable<TechnologyInfoDto>> getTechnologyList(string input);
+
     }
 }

@@ -34,6 +34,8 @@ using Precise.MultiTenancy.Payments;
 using Precise.MultiTenancy.Payments.Dto;
 using Precise.Notifications.Dto;
 using Precise.Organizations.Dto;
+using Precise.Plan.Dto;
+using Precise.ProductLine.Dto;
 using Precise.Sessions.Dto;
 using Precise.Technology.Dto;
 using Precise.WorkFlow;
@@ -48,6 +50,12 @@ namespace Precise
 
             configuration.CreateMap<TechnologyInfo, TechnologyInfoDto>();
             configuration.CreateMap<TechnologyInfo, GetTechnologyInfoInput>();
+            configuration.CreateMap<PlanInfo, PlanInfoDto>()
+                .ForMember(dto => dto.CreatedTime, options => options.MapFrom(l => l.CreationTime.ToString("yyyy-MM-dd HH:mm:ss")))
+                .ForMember(dto => dto.PlanDate, options => options.MapFrom(l => l.PlanDate.ToString("yyyy-MM-dd")));
+            configuration.CreateMap<PlanInfo, PlanInfoInput>();
+            configuration.CreateMap<ProductLineInfo, ProductLineInfoDto>();
+            configuration.CreateMap<ProductLineInfoDto, ProductLineInfoInput>();
 
             #region BASE
 

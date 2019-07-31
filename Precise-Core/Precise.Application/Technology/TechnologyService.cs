@@ -14,6 +14,7 @@ using Abp.RealTime;
 using Abp.Runtime.Session;
 using Abp.Timing;
 using System.Linq.Dynamic.Core;
+using System.Linq;
 using Abp.Authorization;
 
 namespace Precise.Technology
@@ -73,6 +74,19 @@ namespace Precise.Technology
             var query = await _TechnologyInfo.GetAsync(input.Id);
 
             return ObjectMapper.Map<TechnologyInfoDto>(query);
+        }
+
+        public async Task<IEnumerable<TechnologyInfoDto>> getTechnologyList(string input)
+        {
+            var query = _TechnologyInfo.GetAll();
+
+            if (!input.IsNullOrWhiteSpace())
+                query = query.Where(p => p.RubberCode.Contains(input) || p.Name.Contains(input) || p.Code.Contains(input));
+            var results = await query
+                .OrderBy(p => !p.RubberCode.Contains(input))
+                .ThenBy(p => p.RubberCode)
+                .ToListAsync();
+            return ObjectMapper.Map<IEnumerable<TechnologyInfoDto>>(results);
         }
     }
 }
