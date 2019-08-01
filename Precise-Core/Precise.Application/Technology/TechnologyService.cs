@@ -76,7 +76,7 @@ namespace Precise.Technology
             return ObjectMapper.Map<TechnologyInfoDto>(query);
         }
 
-        public async Task<IEnumerable<TechnologyInfoDto>> getTechnologyList(string input)
+        public async Task<IEnumerable<TechnologyInfoDto>> GetTechnologyList(string input)
         {
             var query = _TechnologyInfo.GetAll();
 

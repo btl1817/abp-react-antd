@@ -11,5 +11,7 @@ namespace Precise.Plan
     public interface IPlanService : IAsyncCrudAppService<PlanInfoDto, long, PlanInfoInput>
     {
         Task<PlanInfoDto> GetById(EntityDto<long> input);
+        
+        Task CreatePlans(CreatePlanInput input);
     }
 }

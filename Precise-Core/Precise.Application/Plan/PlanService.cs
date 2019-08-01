@@ -56,7 +56,7 @@ namespace Precise.Plan
                         select new
                         {
                             CardCode = pi.CardCode,
-                            CreatedTime = pi.CreationTime.ToString("yyyy-MM-dd HH:mm:ss"),
+                            CreatedTime = pi.CreationTime.ToString("yyyy-MM-dd HH:mm:ss.fff"),
                             CreatedUser = au.Surname + au.Name,
                             CreationTime = pi.CreationTime,
                             CreatorUserId = pi.CreatorUserId,
@@ -80,13 +80,13 @@ namespace Precise.Plan
                 .WhereIf(!input.CardCode.IsNullOrWhiteSpace(), item => item.CardCode.Contains(input.CardCode))
                 .WhereIf(!input.TechnologyCode.IsNullOrWhiteSpace(), item => item.TechnologyCode.Contains(input.TechnologyCode))
                 .WhereIf(input.Status.HasValue, item => item.Status.Equals(input.Status.Value))
-                .WhereIf(input.PlanDateStart != null && input.PlanDateEnd != null, item => input.PlanDateStart >= item.PlanDateD && item.PlanDateD <= input.PlanDateStart)
-                .WhereIf(input.PlanDateStart != null && input.CreateTimeEnd != null, item => input.CreateTimeStart >= item.CreationTime && item.CreationTime <= input.CreateTimeStart)
+                .WhereIf(input.PlanDateStart != null && input.PlanDateEnd != null, item => input.PlanDateStart <= item.PlanDateD && item.PlanDateD < input.PlanDateEnd)
+                .WhereIf(input.CreateTimeStart != null && input.CreateTimeEnd != null, item => input.CreateTimeStart <= item.CreationTime && item.CreationTime < input.CreateTimeEnd)
                 ;
 
             var resultCount = await query.CountAsync();
             var results = await query
-                .OrderBy(input.Sorting)
+                .OrderBy(input.SortField + ' ' + input.SortOrder)
                 .PageBy(input)
                 .ToListAsync();
 
@@ -107,9 +107,24 @@ namespace Precise.Plan
             return ObjectMapper.Map<PlanInfoDto>(query);
         }
 
-        public async Task<PlanInfoDto> CreatePlan(PlanInfoDto input)
+        public async Task CreatePlans(CreatePlanInput input)
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < input.Qty; i++)
+            {
+                await _planInfo.InsertAsync(new PlanInfo
+                {
+                    CardCode = DateTime.Now.ToString("yyyyMMddHHmmss") + i.ToString("000"),
+                    CreationTime = DateTime.Now,
+                    Shifts = input.Shifts,
+                    IsDeleted = false,
+                    Status = 0,
+                    PlanDate = input.PlanDate.Date,
+                    ProductLineId = input.ProductLineId,
+                    TechnologyCode = input.TechnologyCode,
+                    OutCode = input.OutCode,
+                    Remark = input.Remark,
+                });
+            }
         }
     }
 }

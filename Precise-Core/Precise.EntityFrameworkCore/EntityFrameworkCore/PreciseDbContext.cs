@@ -100,6 +100,22 @@ namespace Precise.EntityFrameworkCore
                 b.HasIndex(e => new { e.PaymentId, e.Gateway });
             });
 
+            modelBuilder.Entity<PlanInfo>(b =>
+            {
+                b.HasIndex(e => new { e.CardCode }).IsUnique();
+                b.HasIndex(e => new { e.TechnologyCode });
+            });
+
+            modelBuilder.Entity<TechnologyInfo>(b =>
+            {
+                b.HasIndex(e => new { e.Code }).IsUnique();
+            });
+
+            modelBuilder.Entity<ProductLineInfo>(b =>
+            {
+                b.HasIndex(e => new { e.Code }).IsUnique();
+            });
+
             modelBuilder.ConfigurePersistedGrantEntity();
         }
     }

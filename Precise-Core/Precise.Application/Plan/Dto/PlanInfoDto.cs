@@ -19,7 +19,7 @@ namespace Precise.Plan.Dto
 
         public string ProductLineName { get; set; }
 
-        public string Shifts { get; set; }
+        public int Shifts { get; set; }
 
         public PlanStatus Status { get; set; }
 

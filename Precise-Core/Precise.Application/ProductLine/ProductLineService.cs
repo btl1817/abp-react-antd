@@ -79,5 +79,17 @@ namespace Precise.ProductLine
             return ObjectMapper.Map<ProductLineInfoDto>(query);
         }
 
+        public async Task<IEnumerable<ProductLineInfoDto>> GetBanburyingProductLineList(string input)
+        {
+            var query = _productLine.GetAll().Where(p => p.Type == ProductLineType.密炼);
+
+            if (!input.IsNullOrWhiteSpace())
+                query = query.Where(p => p.Name.Contains(input) || p.Code.Contains(input));
+            var results = await query
+                .OrderBy(p => p.Code)
+                .ToListAsync();
+            return ObjectMapper.Map<IEnumerable<ProductLineInfoDto>>(results);
+        }
+
     }
 }

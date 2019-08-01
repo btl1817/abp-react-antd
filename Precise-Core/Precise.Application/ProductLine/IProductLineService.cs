@@ -11,5 +11,6 @@ namespace Precise.ProductLine
     public interface IProductLineService : IAsyncCrudAppService<ProductLineInfoDto, long, ProductLineInfoInput>
     {
         Task<ProductLineInfoDto> GetById(EntityDto<long> input);
+        Task<IEnumerable<ProductLineInfoDto>> GetBanburyingProductLineList(string input);
     }
 }

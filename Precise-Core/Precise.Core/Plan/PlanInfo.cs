@@ -20,7 +20,7 @@ namespace Precise
 
         public DateTime PlanDate { get; set; }
 
-        public string Shifts { get; set; }
+        public int Shifts { get; set; }
 
         public PlanStatus Status { get; set; }
 
@@ -30,13 +30,18 @@ namespace Precise
 
         public DateTime? AuditedTime { get; set; }
 
+        public string OutCode { get; set; }
+        public string Remark { get; set; }
+
         public virtual ProductLineInfo ProductLine { get; set; }
     }
 
     public enum PlanStatus
     {
         新建,
-        执行,
+        出卡,
+        配料,
+        密炼,
         完成,
         审核完成,
         审核作废,

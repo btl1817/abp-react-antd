@@ -18,26 +18,23 @@ namespace Precise.Plan.Dto
 
         public DateTime? CreateTimeStart { get; set; }
         public DateTime? CreateTimeEnd { get; set; }
+        public string[] CreateTime { get; set; }
 
         public PlanStatus? Status { get; set; }
 
         public void Normalize()
         {
-            if (Sorting.IsNullOrWhiteSpace())
+            if (SortField.IsNullOrWhiteSpace())
+                SortField = "CreatedTime";
+
+            switch (SortOrder)
             {
-                Sorting = "CardCode DESC";
-            }
-            else if (Sorting.IndexOf("TechnologyCode", StringComparison.OrdinalIgnoreCase) >= 0)
-            {
-                Sorting = "TechnologyCode." + Sorting;
-            }
-            else if (Sorting.IndexOf("PlanData", StringComparison.OrdinalIgnoreCase) >= 0)
-            {
-                Sorting = "PlanData." + Sorting;
-            }
-            else if (Sorting.IndexOf("Status", StringComparison.OrdinalIgnoreCase) >= 0)
-            {
-                Sorting = "Status." + Sorting;
+                case "ascend":
+                    SortOrder = "Asc";
+                    break;
+                default:
+                    SortOrder = "Desc";
+                    break;
             }
         }
     }
