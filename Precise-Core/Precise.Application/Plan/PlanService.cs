@@ -109,7 +109,7 @@ namespace Precise.Plan
 
         public async Task CreatePlans(CreatePlanInput input)
         {
-            for (int i = 0; i < input.Qty; i++)
+            for (int i = 1; i < input.Qty; i++)
             {
                 await _planInfo.InsertAsync(new PlanInfo
                 {
@@ -125,6 +125,13 @@ namespace Precise.Plan
                     Remark = input.Remark,
                 });
             }
+        }
+
+        public async Task NullifyPlan(EntityDto<long> input)
+        {
+            var query = await _planInfo.GetAsync(input.Id);
+            query.Status = PlanStatus.计划作废;
+            await _planInfo.UpdateAsync(query);
         }
     }
 }

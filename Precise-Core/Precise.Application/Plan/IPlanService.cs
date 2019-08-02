@@ -13,5 +13,7 @@ namespace Precise.Plan
         Task<PlanInfoDto> GetById(EntityDto<long> input);
         
         Task CreatePlans(CreatePlanInput input);
+
+        Task NullifyPlan(EntityDto<long> input);
     }
 }
