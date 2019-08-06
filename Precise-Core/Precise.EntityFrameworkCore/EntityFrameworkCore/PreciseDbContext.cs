@@ -25,6 +25,8 @@ namespace Precise.EntityFrameworkCore
         public virtual DbSet<TechnologyFeed> TechnologyFeeds { get; set; }
         public virtual DbSet<PlanInfo> PlanInfos { get; set; }
         public virtual DbSet<ProductLineInfo> ProductLineInfos { get; set; }
+        public virtual DbSet<CheckLog> CheckLogs { get; set; }
+        public virtual DbSet<DeviceInfo> DeviceInfos { get; set; }
         #endregion
 
         //Add-Migration

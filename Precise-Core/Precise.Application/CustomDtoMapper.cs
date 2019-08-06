@@ -19,6 +19,7 @@ using Precise.Authorization.Users.Dto;
 using Precise.Authorization.Users.Profile.Dto;
 using Precise.Chat;
 using Precise.Chat.Dto;
+using Precise.Check.Dto;
 using Precise.DataItems;
 using Precise.DataItems.Dtos;
 using Precise.Editions;
@@ -55,7 +56,10 @@ namespace Precise
                 .ForMember(dto => dto.PlanDate, options => options.MapFrom(l => l.PlanDate.ToString("yyyy-MM-dd")));
             configuration.CreateMap<PlanInfo, PlanInfoInput>();
             configuration.CreateMap<ProductLineInfo, ProductLineInfoDto>();
-            configuration.CreateMap<ProductLineInfoDto, ProductLineInfoInput>();
+            configuration.CreateMap<ProductLineInfo, ProductLineInfoInput>();
+            configuration.CreateMap<DeviceInfo, DeviceInfoDto>();
+            configuration.CreateMap<DeviceInfo, DeviceInfoInfo>();
+            configuration.CreateMap<CheckLog, CheckLogDto>();
 
             #region BASE
 

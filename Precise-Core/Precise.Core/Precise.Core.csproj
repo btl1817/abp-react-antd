@@ -7,33 +7,33 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Localization\Precise\Precise-ar.xml" />
-    <None Remove="Localization\Precise\Precise-de.xml" />
-    <None Remove="Localization\Precise\Precise-es-MX.xml" />
-    <None Remove="Localization\Precise\Precise-es.xml" />
-    <None Remove="Localization\Precise\Precise-fr.xml" />
-    <None Remove="Localization\Precise\Precise-it.xml" />
-    <None Remove="Localization\Precise\Precise-pt-BR.xml" />
-    <None Remove="Localization\Precise\Precise-ru.xml" />
-    <None Remove="Localization\Precise\Precise-tr.xml" />
-    <None Remove="Localization\Precise\Precise-vi.xml" />
-    <None Remove="Localization\Precise\Precise-zh-Hans.xml" />
-    <None Remove="Localization\Precise\Precise.xml" />
+    <None Remove="Base\Localization\Precise\Precise-ar.xml" />
+    <None Remove="Base\Localization\Precise\Precise-de.xml" />
+    <None Remove="Base\Localization\Precise\Precise-es-MX.xml" />
+    <None Remove="Base\Localization\Precise\Precise-es.xml" />
+    <None Remove="Base\Localization\Precise\Precise-fr.xml" />
+    <None Remove="Base\Localization\Precise\Precise-it.xml" />
+    <None Remove="Base\Localization\Precise\Precise-pt-BR.xml" />
+    <None Remove="Base\Localization\Precise\Precise-ru.xml" />
+    <None Remove="Base\Localization\Precise\Precise-tr.xml" />
+    <None Remove="Base\Localization\Precise\Precise-vi.xml" />
+    <None Remove="Base\Localization\Precise\Precise-zh-Hans.xml" />
+    <None Remove="Base\Localization\Precise\Precise.xml" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Localization\Precise\Precise-ar.xml" />
-    <EmbeddedResource Include="Localization\Precise\Precise-de.xml" />
-    <EmbeddedResource Include="Localization\Precise\Precise-es-MX.xml" />
-    <EmbeddedResource Include="Localization\Precise\Precise-es.xml" />
-    <EmbeddedResource Include="Localization\Precise\Precise-fr.xml" />
-    <EmbeddedResource Include="Localization\Precise\Precise-it.xml" />
-    <EmbeddedResource Include="Localization\Precise\Precise-pt-BR.xml" />
-    <EmbeddedResource Include="Localization\Precise\Precise-ru.xml" />
-    <EmbeddedResource Include="Localization\Precise\Precise-tr.xml" />
-    <EmbeddedResource Include="Localization\Precise\Precise-vi.xml" />
-    <EmbeddedResource Include="Localization\Precise\Precise-zh-Hans.xml" />
-    <EmbeddedResource Include="Localization\Precise\Precise.xml" />
+    <EmbeddedResource Include="Base\Localization\Precise\Precise-ar.xml" />
+    <EmbeddedResource Include="Base\Localization\Precise\Precise-de.xml" />
+    <EmbeddedResource Include="Base\Localization\Precise\Precise-es-MX.xml" />
+    <EmbeddedResource Include="Base\Localization\Precise\Precise-es.xml" />
+    <EmbeddedResource Include="Base\Localization\Precise\Precise-fr.xml" />
+    <EmbeddedResource Include="Base\Localization\Precise\Precise-it.xml" />
+    <EmbeddedResource Include="Base\Localization\Precise\Precise-pt-BR.xml" />
+    <EmbeddedResource Include="Base\Localization\Precise\Precise-ru.xml" />
+    <EmbeddedResource Include="Base\Localization\Precise\Precise-tr.xml" />
+    <EmbeddedResource Include="Base\Localization\Precise\Precise-vi.xml" />
+    <EmbeddedResource Include="Base\Localization\Precise\Precise-zh-Hans.xml" />
+    <EmbeddedResource Include="Base\Localization\Precise\Precise.xml" />
   </ItemGroup>
 
   <ItemGroup>

@@ -19,6 +19,8 @@ namespace Precise
 
         public string Status { get; set; }
 
+        public string ProduceLines { get; set; }
+
         public virtual TechnologyStep[] Steps { get; set; }
         public virtual TechnologyFeed[] Feeds { get; set; }
     }
